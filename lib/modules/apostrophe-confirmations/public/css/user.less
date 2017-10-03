@@ -1,53 +1,34 @@
-.apos-notification-container {
-  position: fixed;
-  width: 33vw;
-  top: @apos-padding-2;
-  right: @apos-padding-2;
+.apos-confirmation-container {
   z-index: @apos-z-index-8;
-
-  @media @apos-breakpoint-desktop-xl
-  {
-    top: @apos-padding-4;
-    left: @apos-padding-4;
-  }
+  position: fixed;
+  // @TODO position taken from modal. Refactor both with vars.
+  top: 20px;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
 }
 
-.apos-notification {
-  background-color: @apos-white;
-  color: @apos-dark;
+.apos-confirmation {
   .apos-button-border(@apos-dark);
   .apos-rounded();
   .apos-drop-shadow();
-  overflow: hidden;
-  margin-bottom: @apos-padding-2;
-  position: relative;
   .apos-transition;
-    
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin-bottom: @apos-padding-2;
+  color: @apos-dark;
+  background-color: fade(@apos-white, 80%);
+  text-align: center;
+
   &-message {
-    font-size: 16px;
     margin-right: 32px;
+    font-size: 16px;
     padding: @apos-padding-1 @apos-padding-2 !important;
   }
-  
+
   &--hidden {
     opacity: 0;
   }
-}
-
-.apos-notification--error {
-  .apos-button-border(@apos-white);
-  background-color: @apos-red;
-  color: @apos-white;
-}
-
-.apos-notification--warn {
-  .apos-button-border(@apos-white);
-  background-color: @apos-gold;
-  color: @apos-white;
-}
-
-.apos-notification--success {
-  .apos-button-border(@apos-white);
-  background-color: @apos-green;
-  color: @apos-white;
 }
