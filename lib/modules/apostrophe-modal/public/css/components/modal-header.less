@@ -3,6 +3,11 @@
 .apos-modal-header
 {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   width: 100%;
   padding: @apos-padding-2 @apos-padding-3 @apos-padding-2;
   background-color: @apos-white;
@@ -56,9 +61,11 @@
   .apos-modal-controls
   {
     position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
     .apos-inline-block(top);
     max-width: 100%;
-    float: right;
     white-space: nowrap;
     text-align: right;
 
@@ -80,5 +87,10 @@
       margin-right: @apos-padding-1;
       @media @apos-breakpoint-desktop-xl { margin-right: @apos-padding-2; }
     }
+  }
+
+  .apos-modal-filters {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
   }
 }
