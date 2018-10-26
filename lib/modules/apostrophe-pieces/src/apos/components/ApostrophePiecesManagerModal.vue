@@ -10,8 +10,8 @@
       <component :moduleName="moduleName" :is="options.components.list" :pieces="pieces" />
     </template>
     <template slot="footer">
-      <!-- <component :is="options.components.pager" :totalPages="totalPages" v-model="currentPage" v-on/> -->
-     <component v-if="inserting" :moduleName="moduleName" :is="options.components.insertModal" @close="inserting = false" @saved="update(); inserting = false" />
+      <component v-if="inserting" :moduleName="moduleName" :is="options.components.insertModal" @close="inserting = false" @saved="update(); inserting = false" />
+      <component :is="options.components.pager" :totalPages="totalPages" v-model="currentPage" />
     </template>
   </ApostropheModal>
 </template>
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       pieces: [],
-      totalPages: 1,
+      totalPages: 33,
       currentPage: 1,
       filterValues: {},
       inserting: false
@@ -61,9 +61,10 @@ export default {
   },
   methods: {
     async update() {
+      console.log('start');
       apos.bus.$emit('busy', true);
       try {
-        this.pieces = (await axios.create({
+        this.piecesData = (await axios.create({
           headers: {
             'X-XSRF-TOKEN': cookies.get(window.apos.csrfCookieName)
           }
@@ -75,13 +76,14 @@ export default {
               page: this.currentPage
             }
           }
-        )).data.pieces;
+        )).data.totalPages;
+
+        // this.foo = 42;
       } finally {
         apos.bus.$emit('busy', false);
       }
     },
     insert() {
-
     }
   }
 };
