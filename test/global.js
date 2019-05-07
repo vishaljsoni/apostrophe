@@ -37,46 +37,53 @@ describe('Global', function() {
     assert(apos.global);
   });
 
-  // it('should populate when global.addGlobalToData is used as middleware', function() {
-  //   const req = apos.tasks.getAnonReq();
-  //   req.res.status = function(n) {
-  //     assert(n <= 400);
-  //     return req.res;
-  //   };
-  //   req.res.send = function(m) {};
-  //   return apos.global.addGlobalToData(req, req.res, function() {
-  //     assert(req.data.global);
-  //     assert(req.data.global.type === 'apostrophe-global');
-  //   });
-  // });
+  it('should populate when global.addGlobalToData is used as middleware', async function() {
+    const req = apos.tasks.getAnonReq();
 
-  // it('should populate when global.addGlobalToData is used with a callback', function(done) {
-  //   const req = apos.tasks.getAnonReq();
-  //   return apos.global.addGlobalToData(req, function(err) {
-  //     assert(!err);
-  //     assert(req.data.global);
-  //     assert(req.data.global.type === 'apostrophe-global');
-  //     done();
-  //   });
-  // });
+    req.res.status = function(n) {
+      assert(n <= 400);
+      return req.res;
+    };
 
-  // it('should populate when global.addGlobalToData is used to return a promise', function() {
-  //   const req = apos.tasks.getAnonReq();
-  //   return apos.global.addGlobalToData(req).then(function() {
-  //     assert(req.data.global);
-  //     assert(req.data.global.type === 'apostrophe-global');
-  //   });
-  // });
+    req.res.send = function(m) {};
 
-  // it('give global doc a workflowLocale property to simulate use with workflow', function() {
-  //   return apos.docs.db.update({
-  //     type: 'apostrophe-global'
-  //   }, {
-  //     $set: {
-  //       workflowLocale: 'en'
-  //     }
-  //   });
-  // });
+    await apos.global.addGlobalToData(req, req.res);
+
+    assert(req.data.global);
+    assert(req.data.global.type === 'apostrophe-global');
+  });
+
+  it('should populate when global.addGlobalToData is used with a callback', async function() {
+    const req = apos.tasks.getAnonReq();
+
+    await apos.global.addGlobalToData(req);
+
+    assert(req.data.global);
+    assert(req.data.global.type === 'apostrophe-global');
+  });
+
+  it('should populate when global.addGlobalToData is used to return a promise', async function() {
+    const req = apos.tasks.getAnonReq();
+
+    await apos.global.addGlobalToData(req);
+
+    assert(req.data.global);
+    assert(req.data.global.type === 'apostrophe-global');
+  });
+
+  it('give global doc a workflowLocale property to simulate use with workflow', async function() {
+    try {
+      await apos.docs.db.update({
+        type: 'apostrophe-global'
+      }, {
+        $set: {
+          workflowLocale: 'en'
+        }
+      });
+    } catch (e) {
+      assert(false);
+    }
+  });
 
   // it('busy mechanism (global)', function() {
   //   this.timeout(50000);
