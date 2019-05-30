@@ -76,7 +76,7 @@ describe('Pieces Widgets', function() {
             }
           ]
         }
-      },
+      }
     });
   });
 
